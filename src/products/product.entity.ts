@@ -1,7 +1,7 @@
-import { Column, Entity, ManyToOne, OneToOne } from "typeorm";
+import { File } from './../files/files.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToOne } from "typeorm";
 import { BaseEntity } from "../base-entity";
 import { ProductCategory } from "../product-categories/product-categories.entity";
-import { JoinColumn } from "typeorm/browser";
 
 @Entity('products')
 export class Product extends BaseEntity {
@@ -13,4 +13,15 @@ export class Product extends BaseEntity {
 
   @ManyToOne(() => ProductCategory, (category: ProductCategory) => category.products)
   public category: ProductCategory
+
+  @JoinColumn()
+  @OneToOne(
+    () => File,
+    {
+      eager: true,
+      nullable: true
+    }
+  )
+  public image?: File;
 }
+

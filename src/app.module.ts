@@ -8,6 +8,8 @@ import { AuthenticationModule } from "./authentication/authentication.module";
 import { ConfigModule } from "@nestjs/config";
 import { ProductsModule } from './products/products.module';
 import { ProductCategoriesModule } from './product-categories/product-categories.module';
+import { FilesModule } from './files/files.module';
+import { MulterModule } from '@nestjs/platform-express';
 
 @Module({
   imports: [
@@ -17,6 +19,10 @@ import { ProductCategoriesModule } from './product-categories/product-categories
     UserModule,
     ProductsModule,
     ProductCategoriesModule,
+    FilesModule,
+    MulterModule.register({
+      dest: './uploads',
+    }),
   ],
   controllers: [AppController],
   providers: [AppService],
