@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
 import { ProductCategoriesService } from "./product-categories.service";
-import { CreateProductCategoryDto } from "./dto/product-categories.dto";
+import { CreateCategoryDto, UpdateCategoryDto } from "./dto/product-categories.dto";
 
 @Controller('product-categories')
 export class ProductCategoriesController {
@@ -13,8 +13,17 @@ export class ProductCategoriesController {
   }
 
   @Post()
-  async createCategory(@Body() category: CreateProductCategoryDto) {
+  async createCategory(@Body() category: CreateCategoryDto) {
     return this.categoriesService.createCategory(category);
   }
 
+  @Patch(':id')
+  async updateCategory(@Param() {id}, @Body() category: UpdateCategoryDto) {
+    return this.categoriesService.updateCategory(Number(id), category);
+  }
+
+  @Delete(':id')
+  async deleteCategory(@Param() {id}) {
+    return this.categoriesService.deleteCategory(id);
+  }
 }
